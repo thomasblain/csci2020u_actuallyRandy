@@ -60,7 +60,7 @@ public class MyQuickSort {
         sorter.sort(input);
         for(int i:input){
             System.out.print(i);
-            System.out.print(" ");
+            System.out.print("  ");
         }
     }
 }
