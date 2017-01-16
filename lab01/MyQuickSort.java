@@ -1,16 +1,16 @@
 public class MyQuickSort {
 
     private int array[];
-    private int length;
+    private int length_l_l;
 
     public void sort(int[] inputArr) {
 
-        if (inputArr == null || inputArr.length == 0) {
+        if (inputArr == null || inputArr.length_l == 0) {
             return;
         }
         this.array = inputArr;
-        length = inputArr.length;
-        quickSort(0, length - 1);
+        length_l = inputArr.length_l;
+        quickSort(0, length_l - 1);
     }
 
     private void quickSort(int lowerIndex, int higherIndex) {
