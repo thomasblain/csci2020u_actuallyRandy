@@ -1,7 +1,7 @@
 public class MyQuickSort {
 
     private int array[];
-    private int length_l_l;
+    private int length_l;
 
     public void sort(int[] inputArr) {
 
