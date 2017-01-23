@@ -1,2 +1,12 @@
 apply plugin: 'java'
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-validator', 
+            name: 'commons-validator', 
+            version: '1.4.1'
+}
+
