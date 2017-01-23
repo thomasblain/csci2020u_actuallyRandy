@@ -1,0 +1,6 @@
+-classpath '/home/a_username/csci2020u/lab02/build/classes/main:/home/a_username/csci2020u/lab02/build/resources/main'
+-d '/home/a_username/csci2020u/lab02/build/docs/javadoc'
+-doctitle 'lab02 API'
+-quiet 
+-windowtitle 'lab02 API'
+'/home/a_username/csci2020u/lab02/src/main/java/csci2020u/lab02/SimpleTest.java'
