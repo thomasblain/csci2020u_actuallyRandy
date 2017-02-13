@@ -5,8 +5,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'commons-validator', 
-            name: 'commons-validator', 
+    compile group: 'commons-validator',
+            name: 'commons-validator',
             version: '1.4.1'
 }
-
