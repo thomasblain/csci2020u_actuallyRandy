@@ -1,12 +1,15 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -17,14 +20,20 @@ public class Main extends Application {
     private TableView<StudentRecord> table;
     String currentFile = "StudentRecord.csv";
 
+    TextField SIDText;
+    TextField assignmentText;
+    TextField midtermText;
+    TextField examText;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("CSVs and Stuff");
 
-        BorderPane layout = new BorderPane();
         //Menu
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.TOP_LEFT);
 
         MenuItem newMenuItem = new MenuItem("New", imageFile("images/new.png"));
         newMenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
@@ -52,7 +61,23 @@ public class Main extends Application {
         fileMenu.getItems().add(exitMenuItem);
 
         menuBar.getMenus().add(fileMenu);
-        layout.setTop(menuBar);
+        grid.add(menuBar, 0,0,1,1);
+
+        Label SIDLabel = new Label("SID:");
+        SIDText = new TextField();
+
+        Label assignmentLabel = new Label("Assignments:");
+        assignmentText = new TextField();
+
+        Label midtermLabel = new Label("Midterm:");
+        midtermText = new TextField();
+
+        Label examLabel = new Label("Exam:");
+        examText = new TextField();
+
+        Button addData = new Button("Add");
+
+        addData.setOnAction(e -> update(table.getSelectionModel().getSelectedItem()));
 
         //Spreadsheet
         table = new TableView<>();
@@ -90,9 +115,18 @@ public class Main extends Application {
         table.getColumns().add(finalGradeColumn);
         table.getColumns().add(letterGradeColumn);
 
-        layout.setCenter(table);
+        grid.add(table, 0,2,5,8);
+        grid.add(SIDLabel, 0,10,1,1);
+        grid.add(SIDText, 1,10,1,1);
+        grid.add(assignmentLabel, 2, 10, 1,1);
+        grid.add(assignmentText, 3,10,1,1);
+        grid.add(midtermLabel,0,11,1,1);
+        grid.add(midtermText,1,11,1,1);
+        grid.add(examLabel,2,11,1,1);
+        grid.add(examText,3,11,1,1);
+        grid.add(addData, 1, 12,1,1);
 
-        Scene scene = new Scene(layout, 600, 600);
+        Scene scene = new Scene(grid, 600, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -107,9 +141,7 @@ public class Main extends Application {
         try {
             writer = new FileWriter(file);
             ObservableList<StudentRecord> m = table.getItems();
-
             for (StudentRecord s : m) {
-
                 writer.append(s.getStudentID() + "," + s.getAssignments() + ","
                         + s.getMidterm() + "," + s.getFinalExam() + "\n");
             }
@@ -192,6 +224,29 @@ public class Main extends Application {
         currentFile = selectedFile.getName();
 
         load(selectedFile);
+    }
+
+    public void update(StudentRecord student) {
+        String SID = student.getStudentID();
+        Double assignment = student.getAssignments();
+        Double midterm = student.getMidterm();
+        Double exam = student.getFinalExam();
+
+        if (!SIDText.textProperty().get().equals("")) {
+            SID = SIDText.textProperty().get();
+        }
+        if (!assignmentText.textProperty().get().equals("")) {
+            assignment = Double.parseDouble(assignmentText.textProperty().get());
+        }
+        if (!midtermText.textProperty().get().equals("")) {
+            midterm = Double.parseDouble(midtermText.textProperty().get());
+        }
+        if (!examText.textProperty().get().equals("")) {
+            exam = Double.parseDouble(examText.textProperty().get());
+        }
+        table.getItems().remove(student);
+        student = new StudentRecord(SID,midterm,assignment,exam);
+        table.getItems().add(student);
     }
 
     public static void main(String[] args){

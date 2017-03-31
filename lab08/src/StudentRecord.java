@@ -40,9 +40,7 @@ public class StudentRecord {
         return midterm;
     }
 
-    public void setMidterm(double midterm) {
-        this.midterm = midterm;
-    }
+    public void setMidterm(double midterm) { this.midterm = midterm; }
 
     public double getAssignments() {
         return assignments;
